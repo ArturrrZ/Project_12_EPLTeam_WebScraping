@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
+import pandas as pd
 ###STEP 1: open website and get html text
 
 ARSENAL_FLASHSCORE='https://www.flashscore.com/team/arsenal/hA1Zm19f/squad/'
@@ -57,4 +57,17 @@ players_forwards=[player.getText().strip() for player in anchors_forwards]
 #Coach
 anchors_coach=parent_coach[0].find('a')
 coach=anchors_coach.getText().strip()
-print(players_gks,players_defenders,players_mid,players_forwards,coach)
+# print(players_gks,players_defenders,players_mid,players_forwards,coach)
+
+#Goalkeepers csv file
+goalkeepers={
+    'Player':[]
+}
+for goalkeeper in players_gks:
+    goalkeepers['Player'].append(goalkeeper)
+goalkeepers_df=pd.DataFrame(goalkeepers)
+goalkeepers_df.to_csv('goalkeepers.csv',index=False)
+
+
+
+
