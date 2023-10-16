@@ -80,6 +80,7 @@ for player in players_defenders:
     defenders['Player'].append(player)
     all_players['Player'].append(player)
 defenders_df=pd.DataFrame(defenders)
+
 defenders_df.to_csv('defenders.csv',index=False)
 #midfilders csv file
 midfielders={
@@ -99,6 +100,7 @@ for player in players_forwards:
     forwards['Player'].append(player)
     all_players['Player'].append(player)
 forwards_df=pd.DataFrame(forwards)
+
 forwards_df.to_csv('forwards.csv',index=False)
 
 # print(all_players)
@@ -106,7 +108,57 @@ forwards_df.to_csv('forwards.csv',index=False)
 all_players_df=pd.DataFrame(all_players)
 all_players_df.to_csv('all_players.csv',index=False)
 ages_mid=[]
+ages_def=[]
+ages_fow=[]
+ages_gks=[]
+all_ages=[]
 # print(anchors_mid)
+#----------------------PART 2------------------
+#-----------------------AGES--------------------
+#Goalkeepers
+for anchor in anchors_gks:
+
+    href=anchor.get('href')
+    href_url=f"https://www.flashscore.com{href}"
+    response=requests.get(url=href_url,headers=header)
+    response.raise_for_status()
+    href_html=response.text
+
+    href_soup=BeautifulSoup(href_html,'html.parser')
+    # print(href_html)
+    profile_heading=href_soup.select('.player-profile-heading .typo-participant-info-regular')
+    age_str=profile_heading[0].getText()
+    age=int(age_str)
+    all_ages.append(age)
+    ages_gks.append(age)
+goalkeepers_df['Age']=ages_gks
+goalkeepers_df_lastcell={
+    'Player': "Average Age",
+    'Age': goalkeepers_df['Age'].mean()
+}
+goalkeepers_df=goalkeepers_df._append(goalkeepers_df_lastcell,ignore_index=True)
+#Defenders
+for anchor in anchors:
+
+    href=anchor.get('href')
+    href_url=f"https://www.flashscore.com{href}"
+    response=requests.get(url=href_url,headers=header)
+    response.raise_for_status()
+    href_html=response.text
+
+    href_soup=BeautifulSoup(href_html,'html.parser')
+    # print(href_html)
+    profile_heading=href_soup.select('.player-profile-heading .typo-participant-info-regular')
+    age_str=profile_heading[0].getText()
+    age=int(age_str)
+    all_ages.append(age)
+    ages_def.append(age)
+defenders_df['Age']=ages_def
+defenders_df_lastcell={
+    'Player': "Average Age",
+    'Age': defenders_df['Age'].mean()
+}
+defenders_df=defenders_df._append(defenders_df_lastcell,ignore_index=True)
 for anchor in anchors_mid:
 
     href=anchor.get('href')
@@ -120,6 +172,7 @@ for anchor in anchors_mid:
     profile_heading=href_soup.select('.player-profile-heading .typo-participant-info-regular')
     age_str=profile_heading[0].getText()
     age=int(age_str)
+    all_ages.append(age)
     ages_mid.append(age)
 midfielders_df['Age']=ages_mid
 midfielders_df_lastcell={
@@ -127,8 +180,42 @@ midfielders_df_lastcell={
     'Age': midfielders_df['Age'].mean()
 }
 midfielders_df=midfielders_df._append(midfielders_df_lastcell,ignore_index=True)
-midfielders_df.to_csv('midfielders.csv',index=False)
+#Forwards
+for anchor in anchors_forwards:
 
+    href=anchor.get('href')
+    href_url=f"https://www.flashscore.com{href}"
+    response=requests.get(url=href_url,headers=header)
+    response.raise_for_status()
+    href_html=response.text
+
+    href_soup=BeautifulSoup(href_html,'html.parser')
+    # print(href_html)
+    profile_heading=href_soup.select('.player-profile-heading .typo-participant-info-regular')
+    age_str=profile_heading[0].getText()
+    age=int(age_str)
+    all_ages.append(age)
+    ages_fow.append(age)
+forwards_df['Age']=ages_fow
+forwards_df_lastcell={
+    'Player': "Average Age",
+    'Age': forwards_df['Age'].mean()
+}
+forwards_df=forwards_df._append(forwards_df_lastcell,ignore_index=True)
+
+all_players_list=all_players['Player']
+# print(all_players_list)
+# print(len(all_players_list))
+# print(len(all_ages))
+# print(all_ages)
+all_players_df['Age']=all_ages
+all_players_df.loc[len(all_players_df.index)]=['Average Age:',all_players_df['Age'].mean()]
+all_players_df.to_csv('all_players.csv',index=False)
+
+midfielders_df.to_csv('midfielders.csv',index=False)
+goalkeepers_df.to_csv('goalkeepers.csv',index=False)
+defenders_df.to_csv('defenders.csv',index=False)
+forwards_df.to_csv('forwards.csv',index=False)
 
 
 
