@@ -67,6 +67,35 @@ for goalkeeper in players_gks:
     goalkeepers['Player'].append(goalkeeper)
 goalkeepers_df=pd.DataFrame(goalkeepers)
 goalkeepers_df.to_csv('goalkeepers.csv',index=False)
+#Defenders csv file
+defenders={
+    'Player':[]
+}
+for player in players_defenders:
+    defenders['Player'].append(player)
+defenders_df=pd.DataFrame(defenders)
+defenders_df.to_csv('defenders.csv',index=False)
+#midfilders csv file
+midfielders={
+    'Player':[]
+}
+for player in players_mid:
+    midfielders['Player'].append(player)
+midfielders_df=pd.DataFrame(midfielders)
+midfielders_df.to_csv('midfielders.csv',index=False)
+
+#Forward csv file
+forwards={
+    'Player': []
+}
+for player in players_forwards:
+    forwards['Player'].append(player)
+forwards_df=pd.DataFrame(forwards)
+forwards_df.to_csv('forwards.csv',index=False)
+
+
+
+
 
 
 
