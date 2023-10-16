@@ -14,3 +14,5 @@ website.raise_for_status()
 print(website.status_code)
 website_html=website.text
 # print(website_html)
+###STEP 2: pass into BS4
+soup=BeautifulSoup(website_html,'html.parser')
