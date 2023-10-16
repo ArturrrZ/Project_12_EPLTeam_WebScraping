@@ -235,7 +235,8 @@ ax.axhline(average_age, color='k', linestyle='--', label=f'Avg Age of Team: {ave
 ax.set_ylabel('avg Age')
 ax.set_title('Average Age By Group in Team')
 ax.legend(title=f'')
-
+# Save the chart as a PNG image
+plt.savefig('team_average_age_chart.png', bbox_inches='tight')
 plt.show()
 
 # print(midfielders_df['Age'].mean())
