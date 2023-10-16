@@ -89,7 +89,7 @@ for player in players_mid:
     midfielders['Player'].append(player)
     all_players['Player'].append(player)
 midfielders_df=pd.DataFrame(midfielders)
-midfielders_df.to_csv('midfielders.csv',index=False)
+# midfielders_df.to_csv('midfielders.csv',index=False)
 
 #Forward csv file
 forwards={
@@ -105,6 +105,29 @@ forwards_df.to_csv('forwards.csv',index=False)
 
 all_players_df=pd.DataFrame(all_players)
 all_players_df.to_csv('all_players.csv',index=False)
+ages_mid=[]
+# print(anchors_mid)
+for anchor in anchors_mid:
+
+    href=anchor.get('href')
+    href_url=f"https://www.flashscore.com{href}"
+    response=requests.get(url=href_url,headers=header)
+    response.raise_for_status()
+    href_html=response.text
+
+    href_soup=BeautifulSoup(href_html,'html.parser')
+    # print(href_html)
+    profile_heading=href_soup.select('.player-profile-heading .typo-participant-info-regular')
+    age_str=profile_heading[0].getText()
+    age=int(age_str)
+    ages_mid.append(age)
+midfielders_df['Age']=ages_mid
+midfielders_df_lastcell={
+    'Player': "Average Age",
+    'Age': midfielders_df['Age'].mean()
+}
+midfielders_df=midfielders_df._append(midfielders_df_lastcell,ignore_index=True)
+midfielders_df.to_csv('midfielders.csv',index=False)
 
 
 
