@@ -29,8 +29,7 @@ for div_gks in divs:
 
 anchors_gks=parent_gks[0].find_all('a')
 players_gks=[player.getText().strip() for player in anchors_gks]
-
-print(players_gks)
+# print(players_gks)
 #Defenders
 parent_def=[]
 for each in divs:
@@ -38,3 +37,24 @@ for each in divs:
         parent_def.append(each.parent)
 anchors=parent_def[0].find_all('a')
 players_defenders=[player.getText().strip() for player in anchors]
+#Mid&For&Coach
+parent_mid=[]
+parent_for=[]
+parent_coach=[]
+for div in divs:
+    if div.getText() == "Midfielders":
+        parent_mid.append(div.parent)
+    if div.getText() == 'Forwards':
+        parent_for.append(div.parent)
+    if div.getText()=='Coach':
+        parent_coach.append(div.parent)
+#Midfielders
+anchors_mid=parent_mid[0].find_all('a')
+players_mid=[player.getText().strip() for player in anchors_mid]
+#Forwards
+anchors_forwards=parent_for[0].find_all('a')
+players_forwards=[player.getText().strip() for player in anchors_forwards]
+#Coach
+anchors_coach=parent_coach[0].find('a')
+coach=anchors_coach.getText().strip()
+print(players_gks,players_defenders,players_mid,players_forwards,coach)
