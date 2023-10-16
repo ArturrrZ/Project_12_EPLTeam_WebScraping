@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import matplotlib.pyplot as plt
 ###STEP 1: open website and get html text
 
 ARSENAL_FLASHSCORE='https://www.flashscore.com/team/arsenal/hA1Zm19f/squad/'
@@ -217,8 +218,25 @@ goalkeepers_df.to_csv('goalkeepers.csv',index=False)
 defenders_df.to_csv('defenders.csv',index=False)
 forwards_df.to_csv('forwards.csv',index=False)
 
+#---------------PART 3-------------
 
+import matplotlib.pyplot as plt
 
+fig, ax = plt.subplots()
 
+groups = ['Goalkeepers', 'Defenders', 'Midfieldiers', 'Forwards']
+counts = [goalkeepers_df['Age'].mean(), defenders_df['Age'].mean(), midfielders_df['Age'].mean(), forwards_df['Age'].mean()]
+bar_labels = ['Goalkeepers', 'Defenders', 'Midfieldiers', 'Forwards']
+bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
 
+ax.bar(groups, counts, label=bar_labels, color=bar_colors)
+average_age = all_players_df['Age'].mean()
+ax.axhline(average_age, color='k', linestyle='--', label=f'Avg Age of Team: {average_age:.2f}')
+ax.set_ylabel('avg Age')
+ax.set_title('Average Age By Group in Team')
+ax.legend(title=f'')
+
+plt.show()
+
+# print(midfielders_df['Age'].mean())
 
