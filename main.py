@@ -59,12 +59,17 @@ anchors_coach=parent_coach[0].find('a')
 coach=anchors_coach.getText().strip()
 # print(players_gks,players_defenders,players_mid,players_forwards,coach)
 
+#ALL TEAM CSV FILE
+all_players={
+    'Player':[]
+}
 #Goalkeepers csv file
 goalkeepers={
     'Player':[]
 }
 for goalkeeper in players_gks:
     goalkeepers['Player'].append(goalkeeper)
+    all_players['Player'].append(goalkeeper)
 goalkeepers_df=pd.DataFrame(goalkeepers)
 goalkeepers_df.to_csv('goalkeepers.csv',index=False)
 #Defenders csv file
@@ -73,6 +78,7 @@ defenders={
 }
 for player in players_defenders:
     defenders['Player'].append(player)
+    all_players['Player'].append(player)
 defenders_df=pd.DataFrame(defenders)
 defenders_df.to_csv('defenders.csv',index=False)
 #midfilders csv file
@@ -81,6 +87,7 @@ midfielders={
 }
 for player in players_mid:
     midfielders['Player'].append(player)
+    all_players['Player'].append(player)
 midfielders_df=pd.DataFrame(midfielders)
 midfielders_df.to_csv('midfielders.csv',index=False)
 
@@ -90,9 +97,14 @@ forwards={
 }
 for player in players_forwards:
     forwards['Player'].append(player)
+    all_players['Player'].append(player)
 forwards_df=pd.DataFrame(forwards)
 forwards_df.to_csv('forwards.csv',index=False)
 
+# print(all_players)
+
+all_players_df=pd.DataFrame(all_players)
+all_players_df.to_csv('all_players.csv',index=False)
 
 
 
