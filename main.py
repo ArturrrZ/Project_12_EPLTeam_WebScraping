@@ -20,3 +20,21 @@ soup=BeautifulSoup(website_html,'html.parser')
 #STEP 3: FIND ALL DIVS
 #FIND ALL DIVS cuz find all by string does not work :(
 divs=soup.find_all('div')
+###STEP 4:find all players and the coach
+#Goalkeepers
+parent_gks=[]
+for div_gks in divs:
+    if div_gks.getText() == 'Goalkeepers':
+        parent_gks.append(div_gks.parent)
+
+anchors_gks=parent_gks[0].find_all('a')
+players_gks=[player.getText().strip() for player in anchors_gks]
+
+print(players_gks)
+#Defenders
+parent_def=[]
+for each in divs:
+    if each.getText() == "Defenders":
+        parent_def.append(each.parent)
+anchors=parent_def[0].find_all('a')
+players_defenders=[player.getText().strip() for player in anchors]
