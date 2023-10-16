@@ -16,3 +16,7 @@ website_html=website.text
 # print(website_html)
 ###STEP 2: pass into BS4
 soup=BeautifulSoup(website_html,'html.parser')
+
+#STEP 3: FIND ALL DIVS
+#FIND ALL DIVS cuz find all by string does not work :(
+divs=soup.find_all('div')
