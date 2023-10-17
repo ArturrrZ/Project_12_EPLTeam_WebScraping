@@ -24,6 +24,7 @@ divs=soup.find_all('div')
 ###STEP 4:find all players and the coach
 #Goalkeepers
 parent_gks=[]
+
 for div_gks in divs:
     if div_gks.getText() == 'Goalkeepers':
         parent_gks.append(div_gks.parent)
@@ -220,7 +221,6 @@ forwards_df.to_csv('forwards.csv',index=False)
 
 #---------------PART 3-------------
 
-import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots()
 
@@ -240,4 +240,6 @@ plt.savefig('team_average_age_chart.png', bbox_inches='tight')
 plt.show()
 
 # print(midfielders_df['Age'].mean())
+#last cell
+# print(all_players_df.loc[len(all_players_df.index)-1])
 
